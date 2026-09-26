@@ -1,0 +1,107 @@
+<div class="container">
+  <h2 class="mb-4">Plan de Pagos</h2>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <div class="row align-items-end">
+          <div class="col-md-8 mb-3">
+            <label for="identification" class="form-label">Cédula / Identificación</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="identification" 
+              formControlName="identification"
+              placeholder="Ingrese la cédula del cliente">
+          </div>
+          <div class="col-md-4 mb-3">
+            <button 
+              type="submit" 
+              class="btn btn-primary w-100"
+              [disabled]="searchForm.invalid || loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+              {{ loading ? 'Buscando...' : 'Buscar' }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+    <p class="mb-0 mt-2 small">La solicitud debe ser aprobada antes de consultar su plan de pagos.</p>
+  </div>
+
+  <div *ngIf="result">
+    <div class="card mb-3">
+      <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Información del Crédito</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 mb-2">
+            <strong>Número de Crédito:</strong> {{ result.credit.creditNumber }}
+          </div>
+          <div class="col-md-4 mb-2">
+            <strong>Cliente:</strong> {{ result.credit.fullName }}
+          </div>
+          <div class="col-md-4 mb-2">
+            <strong>Identificación:</strong> {{ result.credit.identification }}
+          </div>
+          <div class="col-md-4 mb-2">
+            <strong>Monto:</strong> ${{ result.credit.amount | number:'1.2-2' }}
+          </div>
+          <div class="col-md-4 mb-2">
+            <strong>Tasa:</strong> {{ result.credit.annualInterestRate }}%
+          </div>
+          <div class="col-md-4 mb-2">
+            <strong>Periodicidad:</strong> {{ result.credit.paymentFrequency }}
+          </div>
+          <div class="col-md-4 mb-2">
+            <strong>Cuotas:</strong> {{ result.credit.installments }}
+          </div>
+          <div class="col-md-4 mb-2">
+            <strong>Estado:</strong> 
+            <span class="badge" [ngClass]="{
+              'bg-success': result.credit.status === 'APROBADA',
+              'bg-info': result.credit.status === 'DESEMBOLSADA'
+            }">{{ result.credit.status }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header bg-secondary text-white">
+        <h5 class="mb-0">Plan de Amortización</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th>#</th>
+                <th>Vencimiento</th>
+                <th>Cuota</th>
+                <th>Interés</th>
+                <th>Capital</th>
+                <th>Saldo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let installment of result.schedule">
+                <td>{{ installment.installmentNumber }}</td>
+                <td>{{ installment.dueDate | date:'shortDate' }}</td>
+                <td>${{ installment.installmentAmount | number:'1.2-2' }}</td>
+                <td>${{ installment.interest | number:'1.2-2' }}</td>
+                <td>${{ installment.principal | number:'1.2-2' }}</td>
+                <td>${{ installment.balance | number:'1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: credit-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_PATH=/app/data/credit.sqlite
+      - JWT_SECRET=my-super-secret-jwt-key-change-in-production
+      - JWT_REFRESH_SECRET=my-super-secret-refresh-key-change-in-production
+      - ACCESS_TOKEN_EXPIRES=15m
+      - REFRESH_TOKEN_EXPIRES=7d
+    volumes:
+      - ./data:/app/data
+    networks:
+      - credit-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: credit-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - credit-network
+
+networks:
+  credit-network:
+    driver: bridge
+
+volumes:
+  credit-data:

@@ -1,0 +1,17 @@
+{
+  "name": "credit-simulator",
+  "version": "1.0.0",
+  "description": "Sistema de simulación de ciclo de vida de solicitudes de crédito",
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "backend": "cd backend && npm run start:dev",
+    "frontend": "cd frontend && npm start",
+    "build:all": "cd backend && npm run build && cd ../frontend && npm run build",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up",
+    "docker:down": "docker compose down"
+  },
+  "keywords": ["credit", "nestjs", "angular", "typescript"],
+  "author": "",
+  "license": "MIT"
+}

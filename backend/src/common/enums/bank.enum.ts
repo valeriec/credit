@@ -1,0 +1,6 @@
+export enum Bank {
+  LAFISE = 'LAFISE',
+  FICOHSA = 'FICOHSA',
+  BAC_CREDOMATIC = 'BAC CREDOMATIC',
+  BANPRO = 'BANPRO',
+}

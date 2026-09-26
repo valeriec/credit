@@ -1,0 +1,78 @@
+<div class="container">
+  <h2 class="mb-4">Desembolso de Crédito</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="credit" class="card mb-3">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Información del Crédito</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Cédula</label>
+          <p>{{ credit.identification }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Nombre Completo</label>
+          <p>{{ credit.fullName }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Monto</label>
+          <p>${{ credit.amount | number:'1.2-2' }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Tasa</label>
+          <p>{{ credit.annualInterestRate }}%</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Periodicidad</label>
+          <p>{{ credit.paymentFrequency }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Plazo</label>
+          <p>{{ getTerm() }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Datos de Desembolso</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="disbursementForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="bank" class="form-label">Banco Destino *</label>
+          <select class="form-select" id="bank" formControlName="bank">
+            <option value="">Seleccione un banco</option>
+            <option *ngFor="let bank of banks" [value]="bank">{{ bank }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="accountNumber" class="form-label">Número de Cuenta *</label>
+          <input type="text" class="form-control" id="accountNumber" formControlName="accountNumber">
+        </div>
+
+        <div class="d-flex gap-2">
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]="disbursementForm.invalid || loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ loading ? 'Procesando...' : 'Procesar Desembolso' }}
+          </button>
+          <button type="button" class="btn btn-secondary" [routerLink]="['/disbursements']">Volver</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div *ngIf="authService.currentUser$ | async as user">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/dashboard">Simulador de Créditos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item" *ngIf="canAccessSolicitudes(user.role)">
+            <a class="nav-link" routerLink="/applications" routerLinkActive="active">Solicitudes</a>
+          </li>
+          <li class="nav-item" *ngIf="canAccessComiteRiesgo(user.role)">
+            <a class="nav-link" routerLink="/risk" routerLinkActive="active">Comité de Riesgo</a>
+          </li>
+          <li class="nav-item" *ngIf="canAccessDesembolsos(user.role)">
+            <a class="nav-link" routerLink="/disbursements" routerLinkActive="active">Desembolsos</a>
+          </li>
+          <li class="nav-item" *ngIf="canAccessPlanPagos(user.role)">
+            <a class="nav-link" routerLink="/payments" routerLinkActive="active">Plan de Pagos</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <div class="text-white me-3">
+            <div class="fw-bold">{{ user.username }}</div>
+            <small class="text-white-50">{{ getRoleName(user.role) }}</small>
+          </div>
+          <button class="btn btn-outline-light btn-sm" (click)="logout()">Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="container-fluid mt-4">
+  <router-outlet></router-outlet>
+</div>

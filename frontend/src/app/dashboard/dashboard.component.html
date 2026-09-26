@@ -1,0 +1,50 @@
+<div class="container">
+  <h2 class="mb-4">Dashboard</h2>
+
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <div class="card text-white bg-primary">
+        <div class="card-body">
+          <h5 class="card-title">Total Solicitudes</h5>
+          <h2 class="mb-0">{{ stats.total }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card text-white bg-warning">
+        <div class="card-body">
+          <h5 class="card-title">Pendientes</h5>
+          <h2 class="mb-0">{{ stats.pending }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card text-white bg-success">
+        <div class="card-body">
+          <h5 class="card-title">Aprobadas</h5>
+          <h2 class="mb-0">{{ stats.approved }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card text-white bg-danger">
+        <div class="card-body">
+          <h5 class="card-title">Rechazadas</h5>
+          <h2 class="mb-0">{{ stats.rejected }}</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card text-white bg-info">
+        <div class="card-body">
+          <h5 class="card-title">Desembolsadas</h5>
+          <h2 class="mb-0">{{ stats.disbursed }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

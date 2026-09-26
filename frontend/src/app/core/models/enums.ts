@@ -1,0 +1,35 @@
+export enum ApplicationStatus {
+  PENDING = 'PENDIENTE',
+  APPROVED = 'APROBADA',
+  REJECTED = 'RECHAZADA',
+  DISBURSED = 'DESEMBOLSADA',
+}
+
+export enum CreditStatus {
+  APPROVED = 'APROBADA',
+  DISBURSED = 'DESEMBOLSADA',
+}
+
+export enum EmploymentType {
+  ASALARIADO = 'ASALARIADO',
+  INDEPENDIENTE = 'INDEPENDIENTE',
+}
+
+export enum PaymentFrequency {
+  QUINCENAL = 'QUINCENAL',
+  MENSUAL = 'MENSUAL',
+  ANUAL = 'ANUAL',
+}
+
+export enum Bank {
+  LAFISE = 'LAFISE',
+  FICOHSA = 'FICOHSA',
+  BAC_CREDOMATIC = 'BAC CREDOMATIC',
+  BANPRO = 'BANPRO',
+}
+
+export enum UserRole {
+  CREDIT_ADVISOR = 'CREDIT_ADVISOR',
+  ANALYST = 'ANALYST',
+  OPERATIONS_AGENT = 'OPERATIONS_AGENT',
+}

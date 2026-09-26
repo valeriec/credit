@@ -1,0 +1,89 @@
+<div class="container">
+  <h2 class="mb-4">Comité de Riesgo - Detalle de Solicitud</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="application" class="card mb-3">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Información de la Solicitud</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Cédula / Identificación</label>
+          <p>{{ application.identification }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Nombre Completo</label>
+          <p>{{ application.fullName }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Edad</label>
+          <p>{{ getAge() }} años</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Cantidad de Cuotas</label>
+          <p>{{ application.installments }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Periodicidad de Pago</label>
+          <p>{{ application.paymentFrequency }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Plazo</label>
+          <p>{{ getTerm() }}</p>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-bold">Monto Solicitado</label>
+          <p>${{ application.requestedAmount | number:'1.2-2' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Decisión del Comité</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="decisionForm">
+        <div class="mb-3">
+          <label for="observations" class="form-label">Observaciones *</label>
+          <textarea 
+            class="form-control" 
+            id="observations" 
+            rows="4" 
+            formControlName="observations"
+            placeholder="Ingrese las observaciones de la decisión"></textarea>
+          <div class="form-text">Las observaciones son obligatorias para aprobar una solicitud</div>
+        </div>
+
+        <div class="d-flex gap-2">
+          <button 
+            type="button" 
+            class="btn btn-success"
+            [disabled]="loading || decisionForm.invalid"
+            (click)="approve()">
+            <span *ngIf="loading && action === 'approve'" class="spinner-border spinner-border-sm me-2"></span>
+            Aprobar
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-danger"
+            [disabled]="loading"
+            (click)="reject()">
+            <span *ngIf="loading && action === 'reject'" class="spinner-border spinner-border-sm me-2"></span>
+            Rechazar
+          </button>
+          <button type="button" class="btn btn-secondary" [routerLink]="['/risk']">Volver</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

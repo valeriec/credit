@@ -1,0 +1,41 @@
+<div class="container">
+  <h2 class="mb-4">Desembolsos - Créditos Aprobados</h2>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Número de Crédito</th>
+              <th>Cédula</th>
+              <th>Nombre</th>
+              <th>Monto</th>
+              <th>Tasa</th>
+              <th>Periodicidad</th>
+              <th>Plazo</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let credit of credits">
+              <td>{{ credit.creditNumber }}</td>
+              <td>{{ credit.identification }}</td>
+              <td>{{ credit.fullName }}</td>
+              <td>${{ credit.amount | number:'1.2-2' }}</td>
+              <td>{{ credit.annualInterestRate }}%</td>
+              <td>{{ credit.paymentFrequency }}</td>
+              <td>{{ getTerm(credit) }}</td>
+              <td>
+                <a [routerLink]="['/disbursements', credit.id]" class="btn btn-sm btn-primary">Desembolsar</a>
+              </td>
+            </tr>
+            <tr *ngIf="credits.length === 0">
+              <td colspan="8" class="text-center text-muted">No hay créditos aprobados pendientes de desembolso</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

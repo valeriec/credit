@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Solicitudes Registradas</h2>
+    <a routerLink="/applications/new" class="btn btn-primary">Nueva Solicitud</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Identificación</th>
+              <th>Nombre</th>
+              <th>Monto</th>
+              <th>Estado</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let app of applications">
+              <td>{{ app.id }}</td>
+              <td>{{ app.identification }}</td>
+              <td>{{ app.fullName }}</td>
+              <td>{{ app.requestedAmount | number:'1.2-2' }}</td>
+              <td>
+                <span class="badge" [ngClass]="{
+                  'bg-warning': app.status === 'PENDIENTE',
+                  'bg-success': app.status === 'APROBADA',
+                  'bg-danger': app.status === 'RECHAZADA',
+                  'bg-info': app.status === 'DESEMBOLSADA'
+                }">{{ app.status }}</span>
+              </td>
+              <td>{{ app.createdAt | date:'short' }}</td>
+            </tr>
+            <tr *ngIf="applications.length === 0">
+              <td colspan="6" class="text-center text-muted">No hay solicitudes registradas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
